@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76cd03ae-df86-404b-8d3c-a685ae68e7d4" name="Changes" comment="lab01" />
+    <list default="true" id="76cd03ae-df86-404b-8d3c-a685ae68e7d4" name="Changes" comment="lab01">
+      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/MapDirection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/MoveDirection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/Vector2d.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/MapDirectionTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/agh/ics/oop/Vector2dTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/agh/ics/oop/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/agh/ics/oop/World.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,8 +26,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -38,10 +47,20 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="agh.ics.oop" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.Vector2dTest.testToString">
     <configuration name="World" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="agh.ics.oop.World" />
       <module name="oolab1.main" />
@@ -56,8 +75,86 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MapDirectionTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;agh.ics.oop.MapDirectionTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="MapDirectionTest.testNext" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;agh.ics.oop.MapDirectionTest.testNext&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Vector2dTest.testToString" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;agh.ics.oop.Vector2dTest.testToString&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.World" />
+      <item itemvalue="Gradle.MapDirectionTest" />
+      <item itemvalue="Gradle.MapDirectionTest.testNext" />
+      <item itemvalue="Gradle.Vector2dTest.testToString" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Vector2dTest.testToString" />
+        <item itemvalue="Gradle.MapDirectionTest" />
+        <item itemvalue="Gradle.MapDirectionTest.testNext" />
         <item itemvalue="Application.World" />
       </list>
     </recent_temporary>
@@ -70,7 +167,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1665599441658</updated>
-      <workItem from="1665599443691" duration="3899000" />
+      <workItem from="1665599443691" duration="12016000" />
     </task>
     <task id="LOCAL-00001" summary="lab01">
       <created>1665602375008</created>
