@@ -2,9 +2,7 @@ package agh.ics.oop;
 
 public record Vector2d(int x, int y) {
     public String toString() {
-        String str = "";
-        str += "(" + Integer.toString(x) + "," + Integer.toString(y) + ")";
-        return str;
+        return "(" + x + "," + y + ")";
     }
 
     public boolean precedes(Vector2d other) {
@@ -32,9 +30,12 @@ public record Vector2d(int x, int y) {
     }
 
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (!(other instanceof Vector2d)) return false;
-        return this.x == ((Vector2d) other).x && this.y == ((Vector2d) other).y;
+        if (other instanceof Vector2d otherVector) {
+            return this.x == otherVector.x && this.y == otherVector.y;
+        }
+        else {
+            return false;
+        }
     }
 
     public Vector2d opposite() {

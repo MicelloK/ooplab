@@ -3,13 +3,12 @@ package agh.ics.oop;
 public enum MapDirection {
     NORTH, SOUTH, WEST, EAST;
 
-    //methods
     public String toString() {
         return switch (this) {
-            case EAST -> "Wschod";
-            case WEST -> "Zachod";
-            case NORTH -> "Polnoc";
-            case SOUTH -> "Poludnie";
+            case EAST -> "E";
+            case WEST -> "W";
+            case NORTH -> "N";
+            case SOUTH -> "S";
         };
     }
 

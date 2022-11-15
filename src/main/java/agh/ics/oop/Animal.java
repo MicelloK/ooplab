@@ -4,17 +4,27 @@ public class Animal {
     //fields
     private MapDirection animalDirection;
     private Vector2d animalPosition;
-    private static final Vector2d upperRightCorner = new Vector2d(4, 4);
-    private static final Vector2d lowerLeftCorner = new Vector2d(0, 0);
+    private IWorldMap map;
 
-    //methods
     public Animal() {
         this.animalDirection = MapDirection.NORTH;
         this.animalPosition = new Vector2d(2, 2);
     }
 
+    public Animal(IWorldMap map) {
+        this.animalDirection = MapDirection.NORTH;
+        this.animalPosition = new Vector2d(2, 2);
+        this.map = map;
+    }
+
+    public Animal(IWorldMap map, Vector2d initialPosition) {
+        this.animalDirection = MapDirection.NORTH;
+        this.animalPosition = initialPosition;
+        this.map = map;
+    }
+
     public String toString() {
-        return "Position: " + animalPosition.toString() + "\nDirection: " + animalDirection.toString();
+        return animalDirection.toString();
     }
 
     public MapDirection getDirection() {
@@ -38,10 +48,8 @@ public class Animal {
             case FORWARD -> newPosition = animalPosition.add(animalDirection.toUnitVector());
             case BACKWARD -> newPosition = animalPosition.subtract(animalDirection.toUnitVector());
         }
-        if (newPosition.precedes(upperRightCorner) && newPosition.follows(lowerLeftCorner)) {
+        if (map.canMoveTo(newPosition)) {
             animalPosition = newPosition;
         }
     }
-
-
 }
