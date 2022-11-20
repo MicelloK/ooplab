@@ -5,11 +5,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AnimalTest {
+    AbstractWorldMap testingMap = new RectangularMap(4, 4);
 
     @Test
     void creatingNewAnimal() {
         //given
-        Animal animal1 = new Animal();
+        Animal animal1 = new Animal(testingMap);
 
         //when, then
         assertEquals(animal1.getDirection(), MapDirection.NORTH);
@@ -19,7 +20,7 @@ class AnimalTest {
     @Test
     void correctOrientation() {
         //given
-        Animal animal1 = new Animal();
+        Animal animal1 = new Animal(testingMap);
         MoveDirection[] testMovements = new MoveDirection[]{
                 MoveDirection.RIGHT,
                 MoveDirection.RIGHT,
@@ -45,7 +46,7 @@ class AnimalTest {
     @Test
     void changeOfPosition() {
         //given
-        Animal animal1 = new Animal();
+        Animal animal1 = new Animal(testingMap);
 
         //when, then
         // Dir: NORTH
@@ -79,10 +80,10 @@ class AnimalTest {
     @Test
     void mapEdgeControl() {
         //given
-        Animal animal1 = new Animal();
-        Animal animal2 = new Animal();
-        Animal animal3 = new Animal();
-        Animal animal4 = new Animal();
+        Animal animal1 = new Animal(testingMap);
+        Animal animal2 = new Animal(testingMap);
+        Animal animal3 = new Animal(testingMap);
+        Animal animal4 = new Animal(testingMap);
 
         //when
         for (int i = 0; i < 20; i++) animal1.move(MoveDirection.FORWARD);
@@ -102,26 +103,5 @@ class AnimalTest {
         assertTrue(animal2.isAt(new Vector2d(4, 2)));
         assertTrue(animal3.isAt(new Vector2d(2, 0)));
         assertTrue(animal4.isAt(new Vector2d(0, 2)));
-    }
-
-    @Test
-    void inputConversionTest() {
-        //given
-        String[] input1 = new String[]{"f", "f", "r", "b", "l"};
-        String[] input2 = new String[]{"b", "backward", "b", "left", "right", "forward"};
-        String[] input3 = new String[]{"b", "forward", "kaszanka", "bacward", "FORWARD", "leftt", "s", "right"};
-        String[] input4 = new String[]{"forward, backward, r, r, l, left"};
-
-        //when
-        MoveDirection[] result1 = new MoveDirection[]{MoveDirection.FORWARD, MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.BACKWARD, MoveDirection.LEFT};
-        MoveDirection[] result2 = new MoveDirection[]{MoveDirection.BACKWARD, MoveDirection.BACKWARD, MoveDirection.BACKWARD, MoveDirection.LEFT, MoveDirection.RIGHT, MoveDirection.FORWARD};
-        MoveDirection[] result3 = new MoveDirection[]{MoveDirection.BACKWARD, MoveDirection.FORWARD, MoveDirection.RIGHT};
-        MoveDirection[] result4 = new MoveDirection[]{};
-
-        //then
-        assertArrayEquals(OptionsParser.parse(input1), result1);
-        assertArrayEquals(OptionsParser.parse(input2), result2);
-        assertArrayEquals(OptionsParser.parse(input3), result3);
-        assertArrayEquals(OptionsParser.parse(input4), result4);
     }
 }

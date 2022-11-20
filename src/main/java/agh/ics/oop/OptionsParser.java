@@ -3,7 +3,6 @@ package agh.ics.oop;
 public class OptionsParser {
     public static MoveDirection[] parse(String[] args) {
         MoveDirection[] directionsTemp = new MoveDirection[args.length];
-        int wrongDirectionCounter = 0;
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -11,19 +10,9 @@ public class OptionsParser {
                 case "b", "backward" -> directionsTemp[i] = MoveDirection.BACKWARD;
                 case "l", "left" -> directionsTemp[i] = MoveDirection.LEFT;
                 case "r", "right" -> directionsTemp[i] = MoveDirection.RIGHT;
-                default -> wrongDirectionCounter += 1;
+                default -> throw new IllegalArgumentException(args[i] + " is not legal move specification");
             }
         }
-
-        // creating array without null value
-        MoveDirection[] directions = new MoveDirection[args.length - wrongDirectionCounter];
-        int i = 0;
-        for (MoveDirection dir : directionsTemp) {
-            if (dir != null) {
-                directions[i] = dir;
-                i += 1;
-            }
-        }
-        return directions;
+        return directionsTemp;
     }
 }

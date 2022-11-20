@@ -1,24 +1,23 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.lang.Math;
 
 public class GrassField extends AbstractWorldMap {
+    protected final Map<Vector2d, IMapElement> grassList = new HashMap<>();
 
     public GrassField(int numOfGrasses) {
-        List<Integer> positions_x = new ArrayList<>();
-        List<Integer> positions_y = new ArrayList<>();
+        List<Vector2d> positions = new ArrayList<>();
         for (int i = 0; i <= Math.sqrt(10 * numOfGrasses); i++) {
-            positions_x.add(i);
-            positions_y.add(i);
+            for (int j = 0; j <= Math.sqrt(10 * numOfGrasses); j++) {
+                positions.add(new Vector2d(i, j));
+            }
         }
-        Collections.shuffle(positions_x);
-        Collections.shuffle(positions_y);
+        Collections.shuffle(positions);
 
         for (int i = 0; i < numOfGrasses; i++) {
-            elements.add(new Grass(new Vector2d(positions_x.get(i), positions_y.get(i))));
+            Vector2d position = positions.get(i);
+            grassList.put(position, new Grass(position));
         }
     }
 
@@ -26,9 +25,13 @@ public class GrassField extends AbstractWorldMap {
         Vector2d upperRightCorner = new Vector2d(0, 0);
         Vector2d lowerLeftCorner = new Vector2d(0, 0);
 
-        for (IMapElement element : elements) {
-            upperRightCorner = element.getPosition().upperRight(upperRightCorner);
-            lowerLeftCorner = element.getPosition().lowerLeft(lowerLeftCorner);
+        for (Vector2d position : animals.keySet()) {
+            upperRightCorner = position.upperRight(upperRightCorner);
+            lowerLeftCorner = position.lowerLeft(lowerLeftCorner);
+        }
+        for (Vector2d position : grassList.keySet()) {
+            upperRightCorner = position.upperRight(upperRightCorner);
+            lowerLeftCorner = position.lowerLeft(lowerLeftCorner);
         }
 
         Vector2d[] ends = new Vector2d[2];
@@ -39,11 +42,8 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public Object objectAt(Vector2d position) {
-        IMapElement result = null;
-        for (IMapElement element : elements) {
-            if (element.isAt(position) && element instanceof Animal) return element;
-            else if (element.isAt(position)) result = element; //display order
-        }
-        return result;
+        IMapElement element = animals.get(position);
+        if (element != null) return element;
+        return grassList.get(position);
     }
 }

@@ -23,8 +23,6 @@ class RectangularMapTest {
 
         assertTrue(map.place(new Animal(map, new Vector2d(2, 2))));
         assertTrue(map.objectAt(new Vector2d(2, 2)) instanceof Animal);
-        assertFalse(map.place(new Animal(map, new Vector2d(2, 2))));
-        assertFalse(map.place(new Animal(map, new Vector2d(100, -5))));
     }
 
     @Test
@@ -42,8 +40,8 @@ class RectangularMapTest {
 
         assertNull(map.objectAt(new Vector2d(1, 1)));
         assertNull(map.objectAt(new Vector2d(100, 1100)));
-        for (IMapElement element : map.elements) {
-            assertEquals(element, map.objectAt(element.getPosition()));
+        for (Vector2d position : map.animals.keySet()) {
+            assertEquals(position, map.objectAt(position));
         }
     }
 }

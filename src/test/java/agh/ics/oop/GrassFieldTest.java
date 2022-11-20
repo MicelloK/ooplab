@@ -32,24 +32,32 @@ class GrassFieldTest {
 
     @Test
     void isOccupied() {
-        GrassField map = new GrassField(1);
+        GrassField map = new GrassField(10);
 
         assertFalse(map.isOccupied(new Vector2d(100, 100)));
         map.place(new Animal(map, new Vector2d(100, 100)));
         assertTrue(map.isOccupied(new Vector2d(100, 100)));
 
-        for (IMapElement element : map.elements) {
-            assertTrue(map.isOccupied(element.getPosition()));
+        for (Vector2d position : map.animals.keySet()) {
+            assertTrue(map.isOccupied(position));
         }
+        for (Vector2d position : map.grassList.keySet()) {
+            assertTrue(map.isOccupied(position));
+        }
+
     }
 
     @Test
     void objectAt() {
         GrassField map = new GrassField(10);
+        map.place(new Animal(map, new Vector2d(5, 5)));
 
         assertNull(map.objectAt(new Vector2d(100, 1100)));
-        for (IMapElement element : map.elements) {
-            assertEquals(element, map.objectAt(element.getPosition()));
+        for (Vector2d position : map.animals.keySet()) {
+            assertEquals(map.animals.get(position), map.objectAt(position));
+        }
+        for (Vector2d position : map.grassList.keySet()) {
+            assertEquals(map.grassList.get(position), map.objectAt(position));
         }
     }
 }
