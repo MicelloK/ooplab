@@ -34,8 +34,7 @@ public record Vector2d(int x, int y) {
     public boolean equals(Object other) {
         if (other instanceof Vector2d otherVector) {
             return this.x == otherVector.x && this.y == otherVector.y;
-        }
-        else {
+        } else {
             return false;
         }
     }

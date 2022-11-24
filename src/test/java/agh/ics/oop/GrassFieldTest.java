@@ -26,7 +26,6 @@ class GrassFieldTest {
 
         assertTrue(map.place(new Animal(map, new Vector2d(2, 2))));
         assertTrue(map.objectAt(new Vector2d(2, 2)) instanceof Animal);
-        assertFalse(map.place(new Animal(map, new Vector2d(2, 2))));
         assertTrue(map.place(new Animal(map, new Vector2d(100, -5))));
     }
 

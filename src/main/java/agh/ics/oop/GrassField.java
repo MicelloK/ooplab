@@ -18,26 +18,8 @@ public class GrassField extends AbstractWorldMap {
         for (int i = 0; i < numOfGrasses; i++) {
             Vector2d position = positions.get(i);
             grassList.put(position, new Grass(position));
+            boundary.addElement(position);
         }
-    }
-
-    public Vector2d[] getEnds() {
-        Vector2d upperRightCorner = new Vector2d(0, 0);
-        Vector2d lowerLeftCorner = new Vector2d(0, 0);
-
-        for (Vector2d position : animals.keySet()) {
-            upperRightCorner = position.upperRight(upperRightCorner);
-            lowerLeftCorner = position.lowerLeft(lowerLeftCorner);
-        }
-        for (Vector2d position : grassList.keySet()) {
-            upperRightCorner = position.upperRight(upperRightCorner);
-            lowerLeftCorner = position.lowerLeft(lowerLeftCorner);
-        }
-
-        Vector2d[] ends = new Vector2d[2];
-        ends[0] = lowerLeftCorner;
-        ends[1] = upperRightCorner;
-        return ends;
     }
 
     @Override
