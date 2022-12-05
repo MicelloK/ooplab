@@ -1,54 +1,101 @@
 package agh.ics.oop.gui;
-
 import agh.ics.oop.*;
+
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 
-import java.util.Map;
-
-public class App extends Application {
+public class App extends Application implements IStepObserver {
     private AbstractWorldMap map;
     private GridPane grid;
+    private SimulationEngine engine;
+    private Stage stage;
+    private Scene scene;
+    private HBox hBox;
 
-    public void start(Stage primaryStage) throws Exception {
-        updateVisualisation();
+    public void start(Stage primaryStage) throws FileNotFoundException {
+        stage = primaryStage;
+        hBox = new HBox();
+        Button button = new Button("Start");
+        TextField textField = new TextField();
 
-        Scene scene = new Scene(grid, 400, 400);
+        button.setOnAction(action -> {
+            if (textField.getText().length() > 0) {
+                MoveDirection[] directions = OptionsParser.parse(Arrays.asList(textField.getText().split(" ")));
+                engine.updateDirections(directions);
+            }
+            Thread engineThread = new Thread(engine);
+            engineThread.start();
+        });
+
+        hBox.getChildren().addAll(button, textField);
+
+        updateGrid();
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     @Override
-    public void init() throws Exception {
+    public void init() {
         grid = new GridPane();
 
         try {
             MoveDirection[] directions = OptionsParser.parse(getParameters().getRaw());
             map = new GrassField(10);
             Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(1, 5)};
-            IEngine engine = new SimulationEngine(directions, map, positions);
-            engine.run();
-        } catch (IllegalArgumentException ex) {
+            engine = new SimulationEngine(directions, map, positions);
+            engine.addObserver(this);
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    public void updateVisualisation() {
+    public void updateGrid() throws FileNotFoundException {
         Vector2d[] size = map.getSize();
+        int WIDTH = 40;
+        int HEIGHT = 40;
 
+        initGrid(size, WIDTH, HEIGHT);
+
+        int idX = 1;
+        for (int i = size[0].x(); i <= size[1].x(); ++i) {
+            int idY = 1;
+            for (int j = size[1].y(); j >= size[0].y(); --j) {
+                Vector2d position = new Vector2d(i, j);
+                if (map.isOccupied(position)) {
+                    IMapElement object = (IMapElement) map.objectAt(position);
+
+                    GuiElementBox box = new GuiElementBox(object);
+                    VBox vbox = box.getVbox();
+
+                    grid.add(vbox, idX, idY);
+                    GridPane.setHalignment(vbox, HPos.CENTER);
+                }
+                idY += 1;
+            }
+            idX += 1;
+        }
+
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(grid, hBox);
+
+        scene = new Scene(vBox, 800, 800);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void initGrid(Vector2d[] size, int WIDTH, int HEIGHT) {
         grid.getColumnConstraints().clear();
         grid.getRowConstraints().clear();
         grid.getChildren().clear();
-
-        int WIDTH = 40;
-        int HEIGHT = 40;
 
         Label label = new Label("y\\x");
         GridPane.setHalignment(label, HPos.CENTER);
@@ -73,34 +120,21 @@ public class App extends Application {
             GridPane.setHalignment(label, HPos.CENTER);
             idY += 1;
         }
+    }
 
-        idX = 1;
-        for (int i = size[0].x(); i <= size[1].x(); ++i) {
-            idY = 1;
-            for (int j = size[1].y(); j >= size[0].y(); --j) {
-                Vector2d position = new Vector2d(i, j);
-                if (map.isOccupied(position)) {
-                    IMapElement object = (IMapElement) map.objectAt(position);
-
-                    if (object instanceof Animal) {
-                        label = new Label(object.toString());
-                    }
-                    else if (object instanceof Grass) {
-                        label = new Label("T");
-                    }
-                    else {
-                        label = new Label("E"); // if other element types exist
-                    }
-
-                    grid.add(label, idX, idY);
-                    grid.getColumnConstraints().add(new ColumnConstraints(WIDTH));
-                    grid.getRowConstraints().add(new RowConstraints(HEIGHT));
-                    GridPane.setHalignment(label, HPos.CENTER);
+    @Override
+    public void stepTaken() {
+        try {
+            Platform.runLater(() -> {
+                try{
+                    updateGrid();
+                } catch (FileNotFoundException e) {
+                    System.out.println(e.getMessage());
                 }
-                idY += 1;
-            }
-            idX += 1;
+            });
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
         }
-
     }
 }

@@ -11,6 +11,10 @@ public class Grass implements IMapElement {
         return "*";
     }
 
+    public String getImage() {
+        return "src/main/resources/grass.png";
+    }
+
     @Override
     public boolean isAt(Vector2d position) {
         return grassPosition.equals(position);

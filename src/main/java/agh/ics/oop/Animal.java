@@ -26,6 +26,15 @@ public class Animal implements IMapElement {
         return animalDirection.toString();
     }
 
+    public String getImage() {
+        return switch (animalDirection) {
+            case NORTH -> "src/main/resources/up.png";
+            case SOUTH -> "src/main/resources/down.png";
+            case EAST -> "src/main/resources/right.png";
+            case WEST -> "src/main/resources/left.png";
+        };
+    }
+
     public void addObserver(IPositionChangeObserver observer) {
         observerList.add(observer);
     }
